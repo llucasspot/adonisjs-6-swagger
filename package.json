@@ -32,7 +32,8 @@
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "release": "np",
-    "version": "npm run build"
+    "version": "npm run build",
+    "test": "node -v"
   },
   "keywords": [
     "adonis",
