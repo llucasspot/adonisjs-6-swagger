@@ -1,0 +1,126 @@
+{
+  "name": "adonisjs-6-swagger",
+  "version": "1.0.0",
+  "description": "Swagger provider for AdonisJS 6 framework",
+  "type": "module",
+  "main": "build/index.js",
+  "files": [
+    "build",
+    "!build/bin",
+    "!build/tests",
+    "!build/factories"
+  ],
+  "engines": {
+    "node": ">=18.16.0"
+  },
+  "exports": {
+    ".": "./build/index.js",
+    "./commands/generate_swagger_file": "./build/commands/generate_swagger_file.js",
+    "./commands": "./build/commands/main.js",
+    "./swagger_provider": "./build/providers/swagger_provider.js"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "clean": "del-cli build",
+    "typecheck": "tsc --noEmit",
+    "copy:templates": "copyfiles \"src/**/stubs/**/*.stub\" build",
+    "precompile": "npm run lint && npm run clean",
+    "compile": "tsc",
+    "postcompile": "npm run copy:templates",
+    "build": "npm run compile",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write .",
+    "release": "np",
+    "version": "npm run build"
+  },
+  "keywords": [
+    "adonis",
+    "6",
+    "swagger",
+    "adonisjs",
+    "docs",
+    "api"
+  ],
+  "author": "llucas.spot",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llucasspot/adonisjs-6-swagger.git"
+  },
+  "homepage": "https://github.com/llucasspot/adonisjs-6-swagger#readme",
+  "bugs": {
+    "url": "https://github.com/llucasspot/adonisjs-6-swagger/issues"
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^7.1.0",
+    "@adonisjs/core": "^6.2.1",
+    "@adonisjs/eslint-config": "^1.2.1",
+    "@adonisjs/lucid": "^20.0.0",
+    "@adonisjs/prettier-config": "^1.2.1",
+    "@adonisjs/session": "^7.1.1",
+    "@adonisjs/tsconfig": "^1.2.1",
+    "@japa/api-client": "^2.0.2",
+    "@japa/browser-client": "^2.0.2",
+    "@japa/plugin-adonisjs": "^3.0.0",
+    "@types/node": "^20.11.6",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-dist": "^3.30.4",
+    "copyfiles": "^2.4.1",
+    "del-cli": "^5.1.0",
+    "eslint": "^8.56.0",
+    "np": "^9.2.0",
+    "prettier": "^3.1.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "prettier": "@adonisjs/prettier-config",
+  "eslintConfig": {
+    "extends": "@adonisjs/eslint-config/package"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "np": {
+    "message": "chore(release): %s",
+    "tag": "latest",
+    "branch": "main",
+    "anyBranch": false
+  },
+  "dependencies": {
+    "@adonisjs/http-server": "^7.0.2",
+    "@poppinss/utils": "^6.7.1",
+    "mime": "^4.0.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-dist": "^5.11.0"
+  },
+  "peerDependencies": {
+    "@adonisjs/core": "^6.2.0",
+    "@adonisjs/lucid": "^19.0.0",
+    "@adonisjs/session": "^7.0.0",
+    "@japa/api-client": "^2.0.2",
+    "@japa/browser-client": "^2.0.2",
+    "@japa/plugin-adonisjs": "^3.0.0"
+  },
+  "peerDependenciesMeta": {},
+  "tsup": {
+    "entry": [
+      "./index.ts",
+      "./src/types.ts",
+      "./providers/swagger_provider.ts",
+      "./services/swagger.ts"
+    ],
+    "outDir": "./build",
+    "clean": true,
+    "format": "esm",
+    "dts": false,
+    "sourcemap": true,
+    "target": "esnext"
+  }
+}
