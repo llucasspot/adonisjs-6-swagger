@@ -15,8 +15,8 @@ import {
 import { SwaggerManager } from '../src/swagger_manager.js'
 import swaggerJSDoc from 'swagger-jsdoc'
 import { buildJsDocConfig } from '../src/utils/build_js_doc_config.js'
-import { join } from 'node:path'
 import { promises as fs } from 'node:fs'
+import { buildFilePath } from '../src/utils/build_file_path.js'
 
 declare module '@adonisjs/core/types' {
   export interface ContainerBindings {
@@ -27,10 +27,6 @@ declare module '@adonisjs/core/types' {
 
 export default class SwaggerProvider {
   constructor(protected app: ApplicationService) {}
-
-  private getSwaggerConfig(): SwaggerConfig {
-    return this.app.config.get('swagger')
-  }
 
   async register(): Promise<void> {
     this.registerSwaggerManager()
@@ -58,6 +54,10 @@ export default class SwaggerProvider {
       )
       router.get(config.specUrl, controller.swaggerFile.bind(controller)).middleware(middleware)
     }
+  }
+
+  private getSwaggerConfig(): SwaggerConfig {
+    return this.app.config.get('swagger')
   }
 
   private registerSwaggerManager() {
@@ -105,7 +105,7 @@ export default class SwaggerProvider {
       )
     }
 
-    const filePath = join(this.app.appRoot.pathname, config.specFilePath)
+    const filePath = buildFilePath(this.app.appRoot.pathname, config.specFilePath)
     await fs.writeFile(filePath, JSON.stringify(swaggerFileContent))
   }
 }

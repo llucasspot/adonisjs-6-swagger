@@ -8,6 +8,7 @@ import { HttpContext } from '@adonisjs/core/http'
 import { buildJsDocConfig } from './utils/build_js_doc_config.js'
 import * as swaggerUiDist from 'swagger-ui-dist'
 import { SwaggerConfig } from './types.js'
+import { buildFilePath } from './utils/build_file_path.js'
 
 export class SwaggerController {
   static DEFAULT_UI_URL: SwaggerConfig['uiUrl'] = '/docs'
@@ -63,7 +64,7 @@ export class SwaggerController {
     // @ts-ignore dont understand wht it still can be undefined
     const specFilePath: string =
       this.config.specFilePath ?? SwaggerController.DEFAULT_SPEC_FILE_PATH
-    const filePath = join(this.app.appRoot.pathname, specFilePath)
+    const filePath = buildFilePath(this.app.appRoot.pathname, specFilePath)
     return fs.createReadStream(filePath)
   }
 }
