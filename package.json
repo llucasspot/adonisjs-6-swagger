@@ -1,6 +1,6 @@
 {
   "name": "adonisjs-6-swagger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Swagger provider for AdonisJS 6 framework",
   "type": "module",
   "main": "build/index.js",
